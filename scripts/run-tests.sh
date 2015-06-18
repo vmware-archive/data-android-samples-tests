@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -x
+set -e
+
+source acceptanceconfig
+
 cat > ./data-demo/src/main/assets/pivotal.properties << EOM
 pivotal.auth.tokenUrl=$DATA_ACCEPTANCE_AUTH_URL/token
 pivotal.auth.clientId=$DATA_ACCEPTANCE_CLIENT_ID

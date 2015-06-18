@@ -1,5 +1,5 @@
 Feature: Running a sample app
-  As an iOS developer
+  As an Android developer
   I want to have a sample app
   So I can begin developing quickly
 

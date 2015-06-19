@@ -18,7 +18,7 @@ pivotal.data.serviceUrl=$DATA_ACCEPTANCE_BACKEND_URL/data/$DATA_ACCEPTANCE_NAMES
 pivotal.data.collisionStrategy=OptimisticLocking
 EOM
 
-./gradlew clean build
+./gradlew --refresh-dependencies clean assemble
 
 gem install calabash-android
 

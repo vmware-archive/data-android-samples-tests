@@ -80,7 +80,7 @@ echo ""
 
 cert_path=$(dirname $0)/../app/src/main/assets/cert.der
 
-$(dirname $0)/../../scripts/get-certificates *.$SYSTEM_DOMAIN:443 $cert_path
+$(dirname $0)/get-certificates.sh *.$SYSTEM_DOMAIN:443 $cert_path
 
 echo ""
 echo "======================================================"

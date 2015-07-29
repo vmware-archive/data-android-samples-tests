@@ -4,9 +4,9 @@ Given /^I am on the Welcome Screen$/ do
 end
 
 Given /^I enter my username into input field number (\d+)$/ do |field|
-  step "I enter \"#{ENV["DATA_ACCEPTANCE_USER"]}\" into input field number #{field}"
+  step "I enter \"#{ENV["username"]}\" into input field number #{field}"
 end
 
 Given /^I enter my password into input field number (\d+)$/ do |field|
-  step "I enter \"#{ENV["DATA_ACCEPTANCE_PASSWORD"]}\" into input field number #{field}"
+  step "I enter \"#{ENV["password"]}\" into input field number #{field}"
 end

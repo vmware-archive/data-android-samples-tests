@@ -13,10 +13,10 @@ set -e
 
 ([ -z $UAA_ADMIN_IDENTITY ] || [ -z $UAA_ADMIN_PASSWORD ] || [ -z $UAA_URL ] || [ -z $SYSTEM_DOMAIN ]) && echo "Missing environment variables" && exit 1
 
-username=$(uuidgen)
-password=$(uuidgen)
-namespace=$(uuidgen)
-collection=$(uuidgen)
+export username=$(uuidgen)
+export password=$(uuidgen)
+export namespace=$(uuidgen)
+export collection=$(uuidgen)
 
 auth_url=https:\/\/datasync-authentication.$SYSTEM_DOMAIN
 data_url=https:\/\/datasync-datastore.$SYSTEM_DOMAIN

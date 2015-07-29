@@ -13,7 +13,7 @@ Scenario: Fetching for the first time
   Then I clear input field number 2
   Then I enter my password into input field number 2
   And I press the "Submit" button
-  # And I wait for "ERROR: Not Found" to appear 
+  And I wait for "Fetch Object" to appear
   Then take picture
 
 Scenario: Save, Fetch, Delete with a token already retrieved

@@ -78,7 +78,7 @@ echo "5. Fetch certificate"
 echo "======================================================"
 echo ""
 
-cert_path=$(dirname $0)/../app/src/main/assets/cert.der
+cert_path=$(dirname $0)/../data-demo/src/main/assets/cert.der
 
 $(dirname $0)/get-certificates.sh *.$SYSTEM_DOMAIN:443 $cert_path
 
@@ -100,14 +100,7 @@ echo "7. Write configuration files"
 echo "======================================================"
 echo ""
 
-cat > $(dirname $0)/../app/src/main/assets/config.properties << EOM
-config.accessToken=$access_token
-config.collection=$collection
-config.key=key
-config.value=value
-EOM
-
-cat > $(dirname $0)/../app/src/main/assets/pivotal.properties << EOM
+cat > $(dirname $0)/../data-demo/src/main/assets/pivotal.properties << EOM
 pivotal.auth.tokenUrl=$auth_url/token
 pivotal.auth.clientId=$client_id
 pivotal.auth.clientSecret=$client_secret

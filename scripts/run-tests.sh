@@ -13,10 +13,10 @@ set -e
 
 ([ -z $UAA_ADMIN_IDENTITY ] || [ -z $UAA_ADMIN_PASSWORD ] || [ -z $UAA_URL ] || [ -z $SYSTEM_DOMAIN ]) && echo "Missing environment variables" && exit 1
 
-export username=$(uuidgen)
-export password=$(uuidgen)
-export namespace=$(uuidgen)
-export collection=$(uuidgen)
+export USERNAME=$(uuidgen)
+export PASSWORD=$(uuidgen)
+export NAMESPACE=$(uuidgen)
+export COLLECTION=objects
 
 auth_url=https:\/\/datasync-authentication.$SYSTEM_DOMAIN
 data_url=https:\/\/datasync-datastore.$SYSTEM_DOMAIN
@@ -41,7 +41,7 @@ echo ""
 (
 content_type_header="Content-Type: application/json"
 authorization_header="Authorization: Bearer $admin_token"
-payload="{\"username\" : \"$username\", \"password\" : \"$password\"}"
+payload="{\"username\" : \"$USERNAME\", \"password\" : \"$PASSWORD\"}"
 
 curl -sk $auth_url/api/users -X POST -H "$authorization_header" -H "$content_type_header" -d "$payload"
 )
@@ -54,7 +54,7 @@ echo ""
 
 (
 authorization_header="Authorization: Bearer $admin_token"
-payload="{\"name\" : \"$namespace\"}"
+payload="{\"name\" : \"$NAMESPACE\"}"
 
 curl -sk $data_url/admin/namespaces -X POST -H "$authorization_header" -d "$payload"
 )
@@ -67,9 +67,9 @@ echo ""
 
 (
 authorization_header="Authorization: Bearer $admin_token"
-payload="{\"name\" : \"$collection\"}"
+payload="{\"name\" : \"$COLLECTION\"}"
 
-curl -sk $data_url/admin/namespaces/$namespace/collections -X POST -H "$authorization_header" -d "$payload"
+curl -sk $data_url/admin/namespaces/$NAMESPACE/collections -X POST -H "$authorization_header" -d "$payload"
 )
 
 echo ""
@@ -90,7 +90,7 @@ echo ""
 
 client_id=android-client
 client_secret=2bf69b535d7ea2f9703ad5529b8cb05188b8dfaaeb9da48242d44373d8838cb7
-payload_auth="username=$username&password=$password&scope=openid&grant_type=password&client_id=$client_id&client_secret=$client_secret"
+payload_auth="username=$USERNAME&password=$PASSWORD&scope=openid&grant_type=password&client_id=$client_id&client_secret=$client_secret"
 
 access_token=$(curl -sk $auth_url/token -X POST -d "$payload_auth" | jq '.access_token' | awk -F '"' '{print $2}')
 
@@ -109,7 +109,7 @@ pivotal.auth.scopes=openid offline_access
 pivotal.auth.accountType=io.pivotal.android.demo.account
 pivotal.auth.tokenType=io.pivotal.android.demo.token
 
-pivotal.data.serviceUrl=$data_url/data/$namespace
+pivotal.data.serviceUrl=$data_url/data/$NAMESPACE
 pivotal.data.collisionStrategy=OptimisticLocking
 
 pivotal.auth.authorizeUrl=$auth_url/authorize

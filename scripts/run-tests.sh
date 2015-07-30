@@ -117,6 +117,7 @@ pivotal.auth.redirectUrl=io.pivotal.android.data://identity/oauth2callback
 pivotal.auth.tokenType=io.pivotal.android.demo.token
 pivotal.data.trustAllSslCertificates=false
 pivotal.data.pinnedSslCertificateNames=$(basename $cert_path)
+pivotal.auth.pinnedSslCertificateNames=$(basename $cert_path)
 EOM
 
 echo ""

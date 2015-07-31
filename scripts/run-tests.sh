@@ -144,7 +144,7 @@ cp $(dirname $0)/../data-demo/build.gradle $(dirname $0)/../data-demo/build.grad
 
 sed -e "s/data-[0-9]*\.[0-9]*\.[0-9]*/$DATA_AAR_NAME/g" \
     -e "s/auth-[0-9]*\.[0-9]*\.[0-9]*/$AUTH_AAR_NAME/g" \
-    $(dirnamee $0)/../data-demo/build.gradle.original > $(dirname $0)/../data-demo/build.gradle
+    $(dirname $0)/../data-demo/build.gradle.original > $(dirname $0)/../data-demo/build.gradle
 
 echo ""
 echo "======================================================"

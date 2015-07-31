@@ -9,9 +9,23 @@ set -e
 # 5. Fetch Certificate
 # 6. Fetch token for user created in #2
 # 7. Write configuration files
-# 8. Run tests
+# 8. Update dependency names
+# 9. Run tests
 
-([ -z $UAA_ADMIN_IDENTITY ] || [ -z $UAA_ADMIN_PASSWORD ] || [ -z $UAA_URL ] || [ -z $SYSTEM_DOMAIN ]) && echo "Missing environment variables" && exit 1
+[ -z $UAA_URL ] && echo "UAA_URL not set"
+[ -z $UAA_ADMIN_IDENTITY ] && echo "UAA_ADMIN_IDENTITY not set"
+[ -z $UAA_ADMIN_PASSWORD ] && echo "UAA_ADMIN_PASSWORD not set"
+[ -z $SYSTEM_DOMAIN ] && echo "SYSTEM_DOMAIN not set"
+
+([ -z $UAA_ADMIN_IDENTITY ] || [ -z $UAA_ADMIN_PASSWORD ] || [ -z $UAA_URL ] || [ -z $SYSTEM_DOMAIN ]) && exit 1
+
+if [ -z $DATA_AAR_NAME ]; then
+  DATA_AAR_NAME="data-release"
+fi
+
+if [ -z $AUTH_AAR_NAME ]; then
+  AUTH_AAR_NAME="auth-release"
+fi
 
 export USERNAME=$(uuidgen)
 export PASSWORD=$(uuidgen)
@@ -122,7 +136,19 @@ EOM
 
 echo ""
 echo "======================================================"
-echo "8. Run tests"
+echo "8. Update dependency names"
+echo "======================================================"
+echo ""
+
+cp $(dirname $0)/../data-demo/build.gradle $(dirname $0)/../data-demo/build.gradle.original
+
+sed -e "s/data-[0-9]*\.[0-9]*\.[0-9]*/$DATA_AAR_NAME/g" \
+    -e "s/auth-[0-9]*\.[0-9]*\.[0-9]*/$AUTH_AAR_NAME/g" \
+    $(dirnamee $0)/../data-demo/build.gradle.original > $(dirname $0)/../data-demo/build.gradle
+
+echo ""
+echo "======================================================"
+echo "9. Run tests"
 echo "======================================================"
 echo ""
 

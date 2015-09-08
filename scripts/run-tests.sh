@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 # 1. Fetch token for admin
 # 2. Create user
 # 3. Create namespace
@@ -11,6 +9,8 @@ set -e
 # 7. Write configuration files
 # 8. Update dependency names
 # 9. Run tests
+
+set -e
 
 [ -z $UAA_URL ] && echo "UAA_URL not set"
 [ -z $UAA_ADMIN_IDENTITY ] && echo "UAA_ADMIN_IDENTITY not set"
@@ -123,15 +123,18 @@ pivotal.auth.scopes=openid offline_access
 pivotal.auth.accountType=io.pivotal.android.demo.account
 pivotal.auth.tokenType=io.pivotal.android.demo.token
 
-pivotal.data.serviceUrl=$data_url/data/$NAMESPACE
-pivotal.data.collisionStrategy=OptimisticLocking
-
 pivotal.auth.authorizeUrl=$auth_url/authorize
 pivotal.auth.redirectUrl=io.pivotal.android.data://identity/oauth2callback
 pivotal.auth.tokenType=io.pivotal.android.demo.token
+
+pivotal.auth.trustAllSslCertificates=false
+pivotal.auth.pinnedSslCertificateNames=$(basename $cert_path)
+
+pivotal.data.serviceUrl=$data_url/data/$NAMESPACE
+pivotal.data.collisionStrategy=OptimisticLocking
+
 pivotal.data.trustAllSslCertificates=false
 pivotal.data.pinnedSslCertificateNames=$(basename $cert_path)
-pivotal.auth.pinnedSslCertificateNames=$(basename $cert_path)
 EOM
 
 echo ""

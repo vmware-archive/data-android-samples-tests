@@ -16,6 +16,7 @@ set -e
 [ -z $UAA_ADMIN_IDENTITY ] && echo "UAA_ADMIN_IDENTITY not set"
 [ -z $UAA_ADMIN_PASSWORD ] && echo "UAA_ADMIN_PASSWORD not set"
 [ -z $SYSTEM_DOMAIN ] && echo "SYSTEM_DOMAIN not set"
+[ -z $TARGET_DOMAIN ] && TARGET_DOMAIN=$SYSTEM_DOMAIN
 
 ([ -z $UAA_ADMIN_IDENTITY ] || [ -z $UAA_ADMIN_PASSWORD ] || [ -z $UAA_URL ] || [ -z $SYSTEM_DOMAIN ]) && exit 1
 
@@ -32,8 +33,8 @@ export PASSWORD=$(uuidgen)
 export NAMESPACE=$(uuidgen)
 export COLLECTION=objects
 
-auth_url=https:\/\/datasync-authentication.$SYSTEM_DOMAIN
-data_url=https:\/\/datasync-datastore.$SYSTEM_DOMAIN
+auth_url=https:\/\/datasync-authentication.$TARGET_DOMAIN
+data_url=https:\/\/datasync-datastore.$TARGET_DOMAIN
 
 echo ""
 echo "======================================================"
@@ -94,7 +95,7 @@ echo ""
 
 cert_path=$(dirname $0)/../data-demo/src/main/assets/cert.der
 
-$(dirname $0)/get-certificates.sh *.$SYSTEM_DOMAIN:443 $cert_path
+$(dirname $0)/get-certificates.sh *.$TARGET_DOMAIN:443 $cert_path
 
 echo ""
 echo "======================================================"

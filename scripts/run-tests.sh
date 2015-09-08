@@ -20,14 +20,6 @@ set -e
 
 ([ -z $UAA_ADMIN_IDENTITY ] || [ -z $UAA_ADMIN_PASSWORD ] || [ -z $UAA_URL ] || [ -z $SYSTEM_DOMAIN ]) && exit 1
 
-if [ -z $DATA_AAR_NAME ]; then
-  DATA_AAR_NAME="data-release"
-fi
-
-if [ -z $AUTH_AAR_NAME ]; then
-  AUTH_AAR_NAME="auth-release"
-fi
-
 export USERNAME=$(uuidgen)
 export PASSWORD=$(uuidgen)
 export NAMESPACE=$(uuidgen)
@@ -143,6 +135,14 @@ echo "======================================================"
 echo "8. Update dependency names"
 echo "======================================================"
 echo ""
+
+if [ -z $DATA_AAR_NAME ]; then
+  DATA_AAR_NAME="data-release"
+fi
+
+if [ -z $AUTH_AAR_NAME ]; then
+  AUTH_AAR_NAME="auth-release"
+fi
 
 cp $(dirname $0)/../data-demo/build.gradle $(dirname $0)/../data-demo/build.gradle.original
 
